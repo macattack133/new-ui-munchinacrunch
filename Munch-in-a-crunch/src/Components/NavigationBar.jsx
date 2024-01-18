@@ -1,46 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import Restaurants from './Restaurants';
-import config from './config';
-import {fetchYelpData} from './YelpApiService';
-
-
-const clientId = config.yelpClientId;
-
-// const NavigationBar = ({setResults}) => {
-//   const [input, setInput] = useState('');
-// //   const [searchTerm, setSearchTerm] = useState('');
-// //   const [searchResults, setSearchResults] = useState([]);
-//
-//
-//   const handleChange = (value) => {
-//   setInput(value);
-//   fetchYelpData(value);
-//   };
-//
-//   return (
-//     <div>
-//       <input
-//         type="text"
-//         placeholder="Search Restaurants"
-//         value={input}
-//         onChange={(e) => handleChange(e.target.value)}
-//       />
-//
-//     </div>
-//   );
-// };
-//
-// export default NavigationBar;
-// YelpSearch.jsx
+import React, { useState } from 'react';
+import axios from 'axios';
 
 
 const NavigationBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSearch = async () => {
     try {
-      const apiKey = config.yelpApiKey;
+      setLoading(true);
+      setError(null);
+
+      const apiKey = 'Ld6wqU30NukAgYEzdzYIsHojAob8ewJbK2NsRRVbNH9h_T2-ELNZMhVTfJPyjOa17cAL6HDDwBlvpgckQG4Xww_xy5gc7t0LoYGRdTuKznBEFJ8xEzTA_pIW-xOoZXYx';
       const endpoint = 'https://api.yelp.com/v3/businesses/search';
       const params = {
         term: searchTerm,
@@ -50,11 +23,11 @@ const NavigationBar = () => {
       const queryString = new URLSearchParams(params).toString();
       const url = `${endpoint}?${queryString}`;
 
-      const response = await fetch(url, {
+      const response = await axios.get(endpoint, {
         headers: {
           Authorization: `Bearer ${apiKey}`,
-          accept: `application/json`
         },
+        params: params,
       });
 
       if (!response.ok) {
@@ -62,28 +35,36 @@ const NavigationBar = () => {
       }
 
       const data = await response.json();
-      setSearchResults(data.businesses);
+      setRestaurants(data.restaurants);
     } catch (error) {
-      console.error('Error fetching Yelp data:', error);
+      setError(`Error fetching data: ${error.message}`);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
+      <h2>Munch In A Crunch</h2>
       <input
         type="text"
-        placeholder="Search St.Louis Restaurants"
+        placeholder="Search Restaurants"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button onClick={handleSearch}>Search Yelp</button>
+      <button onClick={handleSearch} disabled={loading}>
+        Search
+      </button>
+
+      {loading && <p>Loading...</p>}
+
+      {error && <p>{error}</p>}
 
       <ul>
-        {searchResults.map((business) => (
-          <li key={business.id}>
-            <h3>{business.name}</h3>
-            <p>{business.location.address1}</p>
-            {/* Add other business information as needed */}
+        {restaurants.map((restaurant) => (
+          <li key={restaurant.id}>
+            <h3>{restaurant.name}</h3>
+            <p>{restaurant.location.address1}</p>
           </li>
         ))}
       </ul>
@@ -92,4 +73,3 @@ const NavigationBar = () => {
 };
 
 export default NavigationBar;
-
