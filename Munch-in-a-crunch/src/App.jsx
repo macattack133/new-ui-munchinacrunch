@@ -1,17 +1,14 @@
 import { useState } from 'react'
-import viteLogo from '/vite.svg'
-import Restaurants from './Components/Restaurants';
-import NavigationBar from './Components/NavigationBar';
+import YelpSearchPage from './Components/YelpSearchPage';
 import './App.css'
 
-function App() {
 
-
- return (
-   <div>
-    <NavigationBar/>
+const App = () => {
+  return (
+    <div>
+      <h1>Munch In A Crunch</h1>
+      <YelpSearchPage />
     </div>
-    );
-    }
-
+  );
+};
 export default App;

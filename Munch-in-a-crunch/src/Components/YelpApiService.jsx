@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import config from './config';
 
-const apiKey = config.yelpApiKey;
-const clientId = config.yelpClientId;
-
 
     const fetchYelpData = async () => {
       try {
+        const apiKey = config.yelpApiKey;
         const apiUrl = 'https://api.yelp.com/v3/businesses/search';
 
         const response = await fetch(apiUrl, {

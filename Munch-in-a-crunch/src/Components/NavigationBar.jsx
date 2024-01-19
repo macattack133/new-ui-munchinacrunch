@@ -1,75 +1,43 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import config from './config';
 
 
-const NavigationBar = () => {
+const NavigationBar = ({ onSearchResults }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [restaurants, setRestaurants] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const handleSearch = async () => {
     try {
-      setLoading(true);
-      setError(null);
+      const apiUrl = 'https://api.yelp.com/v3/businesses/search';
+      const apiKey = 'config.yelpApiKey';
 
-      const apiKey = 'Ld6wqU30NukAgYEzdzYIsHojAob8ewJbK2NsRRVbNH9h_T2-ELNZMhVTfJPyjOa17cAL6HDDwBlvpgckQG4Xww_xy5gc7t0LoYGRdTuKznBEFJ8xEzTA_pIW-xOoZXYx';
-      const endpoint = 'https://api.yelp.com/v3/businesses/search';
-      const params = {
-        term: searchTerm,
-        location: 'St. Louis',
-      };
-
-      const queryString = new URLSearchParams(params).toString();
-      const url = `${endpoint}?${queryString}`;
-
-      const response = await axios.get(endpoint, {
+      const response = await axios.get(apiUrl, {
         headers: {
           Authorization: `Bearer ${apiKey}`,
         },
-        params: params,
+        params: {
+          term: searchTerm,
+          location: 'St. Louis',
+        },
       });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setRestaurants(data.restaurants);
+      onSearchResults(response.data.businesses);
     } catch (error) {
-      setError(`Error fetching data: ${error.message}`);
-    } finally {
-      setLoading(false);
+      console.error('Error fetching data:', error);
     }
   };
 
   return (
     <div>
-      <h2>Munch In A Crunch</h2>
       <input
         type="text"
         placeholder="Search Restaurants"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button onClick={handleSearch} disabled={loading}>
-        Search
-      </button>
-
-      {loading && <p>Loading...</p>}
-
-      {error && <p>{error}</p>}
-
-      <ul>
-        {restaurants.map((restaurant) => (
-          <li key={restaurant.id}>
-            <h3>{restaurant.name}</h3>
-            <p>{restaurant.location.address1}</p>
-          </li>
-        ))}
-      </ul>
+      <button onClick={handleSearch}>Search Yelp</button>
     </div>
   );
 };
 
 export default NavigationBar;
+
