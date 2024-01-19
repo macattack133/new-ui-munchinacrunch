@@ -1,6 +1,8 @@
 // src/App.jsx
 import React, { useState } from 'react';
 import RandomizerButton from './components/RandomizerButton';
+import FilterComponent from './path-to/FilterComponent'; // Adjust the path accordingly
+import RestaurantList from './path-to/RestaurantList'; // Assuming you have a RestaurantList component
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
@@ -20,6 +22,8 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <RandomizerButton />
+      <FilterComponent />
+      <RestaurantList />
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
