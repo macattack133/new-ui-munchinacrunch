@@ -1,8 +1,8 @@
 // src/App.jsx
 import React, { useState } from 'react';
 import RandomizerButton from './components/RandomizerButton';
-import FilterComponent from './path-to/FilterComponent'; // Adjust the path accordingly
-import RestaurantList from './path-to/RestaurantList'; // Assuming you have a RestaurantList component
+import FilterComponent from './components/FilterComponent'; 
+import RestaurantList from './components/RestaurantList';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
