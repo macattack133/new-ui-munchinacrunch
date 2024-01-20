@@ -3,6 +3,7 @@ import RandomizerButton from './components/RandomizerButton';
 import FilterComponent from './components/FilterComponent'; 
 import RestaurantList from './components/RestaurantList';
 import YelpSearchPage from './components/YelpSearchPage';
+import Login from './components/Login';
 import './App.css';
 
 const App = () => {
@@ -12,8 +13,9 @@ const App = () => {
       <h1>Munch In A Crunch</h1>
       <YelpSearchPage/>
       <RandomizerButton />
-       <FilterComponent />
+      <FilterComponent />
 {/*        <RestaurantList />  */}
+      <Login/>
       </div>
   );
 };
