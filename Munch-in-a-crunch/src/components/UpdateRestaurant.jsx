@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import RestaurantService from './path-to/RestaurantService';
+import RestaurantServices from './path-to/RestaurantService';
 
 const UpdateRestaurant = ({ match }) => {
   const [restaurant, setRestaurant] = useState({});

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import RestaurantServices from 'src/services/RestaurantServices';
-import FilterComponent from 'src/components/FilterComponent';
+//import RestaurantServices from './src/services/RestaurantServices.jsx';
+import FilterComponent from './FilterComponent';
 
 const RestaurantList = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -8,7 +8,7 @@ const RestaurantList = () => {
 
   useEffect(() => {
     // Fetch the list of restaurants based on filtered qualities
-    RestaurantService.getFilteredRestaurants(filteredQualities)
+    RestaurantServices.getFilteredRestaurants(filteredQualities)
       .then((data) => setRestaurants(data))
       .catch((error) => console.error('Error fetching restaurants:', error));
   }, [filteredQualities]);
