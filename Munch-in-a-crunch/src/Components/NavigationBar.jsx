@@ -34,7 +34,7 @@ const NavigationBar = ({ onSearchResults }) => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button onClick={handleSearch}>Search Yelp</button>
+      <button onClick={handleSearch}>Let's Munch</button>
     </div>
   );
 };
