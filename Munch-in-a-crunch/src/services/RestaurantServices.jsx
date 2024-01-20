@@ -1,7 +1,6 @@
-// RestaurantService.js
 const API_BASE_URL = '/api/restaurants';
 
-const RestaurantService = {
+const RestaurantServices = () => {
   getAllRestaurants: () => {
     return fetch(API_BASE_URL)
       .then(response => response.json());
@@ -41,4 +40,4 @@ const RestaurantService = {
   },
 };
 
-export default RestaurantService;
+export default RestaurantServices;

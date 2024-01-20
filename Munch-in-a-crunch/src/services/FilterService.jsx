@@ -1,6 +1,6 @@
 const BASE_URL = '/api/restaurants';
 
-const FilterService = {
+const FilterService = () => {
   getFilteredRestaurants: async (qualities) => {
     try {
       const response = await fetch(`${BASE_URL}/filtered${qualities ? `?qualities=${qualities.join(',')}` : ''}`);
