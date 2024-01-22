@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import config from './config';
+import Config from './Config';
 
 
 const NavigationBar = ({ onSearchResults }) => {
@@ -9,7 +9,7 @@ const NavigationBar = ({ onSearchResults }) => {
   const handleSearch = async () => {
     try {
       const apiUrl = 'https://api.yelp.com/v3/businesses/search';
-      const apiKey = 'config.yelpApiKey';
+      const apiKey = Config.yelpApiKey;
 
       const response = await axios.get(apiUrl, {
         headers: {
