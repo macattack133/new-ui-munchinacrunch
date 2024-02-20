@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Config from './Config';
+
 
 
 const NavigationBar = ({ onSearchResults }) => {
