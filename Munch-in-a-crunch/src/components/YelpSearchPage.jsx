@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import NavigationBar from './NavigationBar';
 
+
 const YelpSearchPage = () => {
   const [searchResults, setSearchResults] = useState([]);
 
