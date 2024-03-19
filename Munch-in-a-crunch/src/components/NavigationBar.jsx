@@ -6,10 +6,11 @@ import axios from 'axios';
 const NavigationBar = ({ onSearchResults }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
+
   const handleSearch = async () => {
     try {
       const apiUrl = 'https://api.yelp.com/v3/businesses/search';
-      const apiKey = Config.yelpApiKey;
+      const apiKey =process.env.REACT_APP_API_KEY;
 
       const response = await axios.get(apiUrl, {
         headers: {
@@ -17,14 +18,13 @@ const NavigationBar = ({ onSearchResults }) => {
         },
         params: {
           term: searchTerm,
-          location: 'St. Louis',
+          location: 'Missouri',
         },
       });
       onSearchResults(response.data.businesses);
     } catch (error) {
       console.error('Error fetching data:', error);
-    }
-  };
+    };
 
   return (
     <div>
@@ -37,6 +37,6 @@ const NavigationBar = ({ onSearchResults }) => {
       <button onClick={handleSearch}>Let's Munch</button>
     </div>
   );
-};
+  };}
 
 export default NavigationBar;

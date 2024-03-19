@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import config from 'Munch-in-a-crunch/src/components/Config.jsx';
 
 
     const fetchYelpData = async () => {
       try {
-        const apiKey = config.yelpApiKey;
+
         const apiUrl = 'https://api.yelp.com/v3/businesses/search';
 
         const response = await fetch(apiUrl, {
