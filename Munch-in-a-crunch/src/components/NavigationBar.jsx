@@ -1,42 +1,49 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+const NavigationBar = () => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
 
+    const handleSearch = async () => {
+        try {
+            const response = await axios.get('https://api.yelp.com/v3/businesses/search', {
+                headers: {
+                    Authorization: `Bearer {process.env.REACT_APP_API_KEY}`,
+                },
+                params: {
+                    term: searchTerm,
+                    categories: 'restaurants',
+                    location: 'St. Louis', // You can change the location as needed
+                },
+            });
+            setSearchResults(response.data.businesses);
+        } catch (error) {
+            console.error('Error searching:', error);
+        }
+    };
 
-const NavigationBar = ({ onSearchResults }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+    const handleInputChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
 
-  const handleSearch = async () => {
-    try {
-      const apiUrl = 'https://api.yelp.com/v3/businesses/search';
-      const apiKey = Config.yelpApiKey;
+    return (
+        <div>
+            <input
+                type="text"
+                placeholder="Search for restaurants..."
+                value={searchTerm}
+                onChange={handleInputChange}
+            />
+            <button onClick={handleSearch}>Search</button>
 
-      const response = await axios.get(apiUrl, {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-        },
-        params: {
-          term: searchTerm,
-          location: 'St. Louis',
-        },
-      });
-      onSearchResults(response.data.businesses);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search Restaurants"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <button onClick={handleSearch}>Let's Munch</button>
-    </div>
-  );
+            <ul>
+                {searchResults.map((restaurant) => (
+                    <li key={restaurant.id}>{restaurant.name}</li>
+                ))}
+            </ul>
+        </div>
+    );
 };
 
 export default NavigationBar;
