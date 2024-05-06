@@ -5,6 +5,7 @@ const NavigationBar = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
+
     const handleSearch = async () => {
         try {
             const response = await axios.get('https://api.yelp.com/v3/businesses/search', {
